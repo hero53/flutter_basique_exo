@@ -35,6 +35,7 @@ class HomePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               alignment: Alignment.topCenter,
@@ -45,7 +46,7 @@ class HomePage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 const Padding(
-                  padding:  EdgeInsets.only(top: 240),
+                  padding: EdgeInsets.only(top: 240),
                   child: CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.white,
@@ -57,23 +58,26 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: const Column(children: [
-                Text(
+            const Row(
+              children: [
+                Spacer(),
+                 Text(
                   "Kouassi Israel",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: 25,
                   ),
                 ),
-                Text(
-                  """Lorem Ipsum is simply dummy text of the printing and typesetting """,
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ]),
+                Spacer(),
+              ],
+            ),
+            const Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                "Lorem Ipsum is simply dummy text of the printing and typesetting",
+                style: TextStyle(fontStyle: FontStyle.italic),
+                textAlign: TextAlign.center,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -122,14 +126,7 @@ class HomePage extends StatelessWidget {
             forRowTextAndIco(const Icon(Icons.work), "Dev web"),
             forRowTextAndIco(const Icon(Icons.favorite), "En couple"),
             sexionTitre("Sexion Titre"),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                imageAndText("images/model.jpg", "Titre image"),
-                imageAndText("images/model.jpg", "Titre image"),
-                imageAndText("images/model.jpg", "Titre image")
-              ],
-            ),
+            allFriends(size.width / 3.5),
             Container(
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 211, 207, 207),
@@ -179,12 +176,12 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Container sexionTitre(String text) {
-  return Container(
-    alignment: Alignment.centerLeft,
+Widget sexionTitre(String text) {
+  return Padding(
+    padding: const EdgeInsets.all(5),
     child: Text(
       text,
-      style: const TextStyle(fontWeight: FontWeight.bold),
+      style: const TextStyle(fontWeight: FontWeight.w600),
     ),
   );
 }
@@ -195,27 +192,51 @@ Text textRandum(String text) {
 
 Row forRowTextAndIco(Icon icone, String text) {
   return Row(
-    children: [icone, Text(text)],
+    children: [
+      icone,
+      Padding(
+        padding: const EdgeInsets.all(5),
+        child: Text(text),
+      )
+    ],
   );
 }
 
-Padding imageAndText(String img, String title) {
+Padding imageAndText(String title, String path, double size) {
   return Padding(
     padding: const EdgeInsets.all(8),
     child: Column(
       children: [
         Container(
-          height: 200,
-          width: 120,
-          decoration: const BoxDecoration(
+          height: size,
+          width: size,
+          decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("images/model.jpg"),
+                image: AssetImage(path),
                 fit: BoxFit.cover, // Pour que l'image couvre tout l'écran
               ),
-              borderRadius: BorderRadius.all(Radius.circular(5))),
+              borderRadius: const BorderRadius.all(Radius.circular(20))),
         ),
         Text(title),
       ],
     ),
+  );
+}
+
+Row allFriends(double size) {
+  Map<String, String> friends = {
+    "kouassi": "images/model_1.jpg",
+    "max": "images/model_2.jpg",
+    "yoboue": "images/model_3.jpg",
+  };
+
+  List<Widget> friendList = friends.entries.map((entry) {
+    return imageAndText(entry.key, entry.value, size);
+  }).toList();
+
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: friendList,
   );
 }
