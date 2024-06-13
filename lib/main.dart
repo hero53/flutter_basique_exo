@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_basique_exo/main_title_text.dart';
 import 'package:flutter_basique_exo/post.dart';
 
 void main() {
@@ -22,12 +23,34 @@ class MyApp extends StatelessWidget {
 }
 
 class BasicPage extends StatelessWidget {
-
-  List<Post> posts= [
-    Post(name:"Kassi Ange",time: "5 minutes", imagePath: "images/carnaval.jpg", desc: "Petit tour au Magic World, on s'est bien amusés et en plus il n'y avait pas grand monde. Bref, le kiff"),
-    Post(name:"Kouassi Yves",time: "2 jours", imagePath: "images/mountain.jpg", desc: "La montagne ca vous gagne", likes: 38),
-    Post(name:"Koue Jean",time: "1 semaine", imagePath: "images/work.jpg", desc: "Retour au boulot après plusieurs mois de confinement", likes: 12, comments: 3),
-    Post(name:"Kouakou Joel",time: "5 ans", imagePath: "images/playa.jpg", desc: "Le boulot en remote c'est le pied: la preuve ceci sera mon bureau pour les prochaines semaines", likes: 235, comments: 88)        
+  List<Post> posts = [
+    Post(
+        name: "Kassi Ange",
+        time: "5 minutes",
+        imagePath: "images/carnaval.jpg",
+        desc:
+            "Petit tour au Magic World, on s'est bien amusés et en plus il n'y avait pas grand monde. Bref, le kiff"),
+    Post(
+        name: "Kouassi Yves",
+        time: "2 jours",
+        imagePath: "images/mountain.jpg",
+        desc: "La montagne ca vous gagne",
+        likes: 38),
+    Post(
+        name: "Koue Jean",
+        time: "1 semaine",
+        imagePath: "images/work.jpg",
+        desc: "Retour au boulot après plusieurs mois de confinement",
+        likes: 12,
+        comments: 3),
+    Post(
+        name: "Kouakou Joel",
+        time: "5 ans",
+        imagePath: "images/playa.jpg",
+        desc:
+            "Le boulot en remote c'est le pied: la preuve ceci sera mon bureau pour les prochaines semaines",
+        likes: 235,
+        comments: 88)
   ];
 
   @override
@@ -44,10 +67,16 @@ class BasicPage extends StatelessWidget {
             Stack(
               alignment: Alignment.topCenter,
               children: [
-                Image.asset("images/cover.jpg", height: 200, fit: BoxFit.cover,),
+                Image.asset(
+                  "images/cover.jpg",
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
                 Padding(
-                    padding: EdgeInsets.only(top: 125),
-                  child: CircleAvatar(radius: 75, backgroundColor: Colors.white,
+                  padding: EdgeInsets.only(top: 125),
+                  child: CircleAvatar(
+                    radius: 75,
+                    backgroundColor: Colors.white,
                     child: myProfilePic(72),
                   ),
                 )
@@ -56,53 +85,50 @@ class BasicPage extends StatelessWidget {
             Row(
               children: [
                 Spacer(),
-                Text(
-                  "Matthieu Codabee",
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25
-                  ),
-                ),
+                MainTitleText(data: "Matthieu Codabee"),
                 Spacer()
               ],
             ),
             Padding(
                 padding: EdgeInsets.all(10),
-              child: Text("Un jour les chats domineront le monde, mais pas aujourd'hui, c'est l'heure de la sieste",
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontStyle: FontStyle.italic
-                ),
-                textAlign: TextAlign.center,
-              )
-            ),
+                child: Text(
+                  "Un jour les chats domineront le monde, mais pas aujourd'hui, c'est l'heure de la sieste",
+                  style: TextStyle(
+                      color: Colors.grey, fontStyle: FontStyle.italic),
+                  textAlign: TextAlign.center,
+                )),
             Row(
               children: [
                 Expanded(child: buttonContainer(text: "Modifier le profil")),
                 buttonContainer(icon: Icons.border_color)
               ],
             ),
-            Divider(thickness: 2,),
+            Divider(
+              thickness: 2,
+            ),
             sectionTitleText("A propos de moi"),
             aboutRow(icon: Icons.house, text: "Hyères les palmiers, France"),
             aboutRow(icon: Icons.work, text: "Développeur Flutter"),
             aboutRow(icon: Icons.favorite, text: "En couple avec mon chat"),
-            Divider(thickness: 2,),
+            Divider(
+              thickness: 2,
+            ),
             sectionTitleText("Amis"),
             allFriends(width / 3.5),
-            Divider(thickness: 2,),
+            Divider(
+              thickness: 2,
+            ),
             sectionTitleText("Mes Posts"),
             allPost()
-
-           ],
+          ],
         ),
       ),
     );
   }
-  
+
   CircleAvatar myProfilePic(double radius) {
-    return CircleAvatar(radius: radius, backgroundImage: AssetImage("images/profile.jpg"));
+    return CircleAvatar(
+        radius: radius, backgroundImage: AssetImage("images/profile.jpg"));
   }
 
   Container buttonContainer({IconData? icon, String? text}) {
@@ -110,25 +136,24 @@ class BasicPage extends StatelessWidget {
       margin: EdgeInsets.only(left: 10, right: 10),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.blue
-      ),
+          borderRadius: BorderRadius.circular(20), color: Colors.blue),
       child: (icon == null)
-          ? Center(child: Text(text ?? "", style: TextStyle(color: Colors.white)))
-          : Icon(icon, color: Colors.white,),
+          ? Center(
+              child: Text(text ?? "", style: TextStyle(color: Colors.white)))
+          : Icon(
+              icon,
+              color: Colors.white,
+            ),
       height: 50,
     );
   }
 
   Widget sectionTitleText(String text) {
     return Padding(
-        padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(5),
       child: Text(
-          text,
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 18
-        ),
+        text,
+        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
       ),
     );
   }
@@ -138,7 +163,7 @@ class BasicPage extends StatelessWidget {
       children: [
         Icon(icon),
         Padding(
-            padding: EdgeInsets.all(5),
+          padding: EdgeInsets.all(5),
           child: Text(text),
         )
       ],
@@ -153,20 +178,18 @@ class BasicPage extends StatelessWidget {
           width: width,
           height: width,
           decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [BoxShadow(color: Colors.grey)],
-            color: Colors.blue
-                
-          ),
-          
+              image: DecorationImage(
+                  image: AssetImage(imagePath), fit: BoxFit.cover),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [BoxShadow(color: Colors.grey)],
+              color: Colors.blue),
         ),
         Text(name),
         Padding(padding: EdgeInsets.only(bottom: 5))
       ],
     );
   }
-  
+
   Row allFriends(double width) {
     Map<String, String> friends = {
       "José": "images/cat.jpg",
@@ -174,7 +197,7 @@ class BasicPage extends StatelessWidget {
       "Douggy": "images/duck.jpg"
     };
     List<Widget> children = [];
-    friends.forEach((name, imagePath) { 
+    friends.forEach((name, imagePath) {
       children.add(friendsImage(name, imagePath, width));
     });
     return Row(
@@ -183,14 +206,16 @@ class BasicPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     );
   }
-  Column allPost(){
+
+  Column allPost() {
     List<Widget> postToAdd = [];
     posts.forEach((element) {
-      postToAdd.add(post(post:element));
-     });
+      postToAdd.add(post(post: element));
+    });
 
-     return Column(children: postToAdd);
+    return Column(children: postToAdd);
   }
+
   Container post({required Post post}) {
     return Container(
       margin: EdgeInsets.only(top: 8, left: 3, right: 3),
@@ -212,13 +237,14 @@ class BasicPage extends StatelessWidget {
           ),
           Padding(
               padding: EdgeInsets.only(top: 8, bottom: 8),
-            child: Image.asset(post.imagePath, fit: BoxFit.cover,)
-          ),
-          Text(post.desc,
-            style: TextStyle(
-              color: Colors.blueAccent),
+              child: Image.asset(
+                post.imagePath,
+                fit: BoxFit.cover,
+              )),
+          Text(
+            post.desc,
+            style: TextStyle(color: Colors.blueAccent),
             textAlign: TextAlign.center,
-
           ),
           Divider(),
           Row(
@@ -231,13 +257,15 @@ class BasicPage extends StatelessWidget {
               Text(post.setComment())
             ],
           )
-
         ],
       ),
     );
   }
-  
+
   Text timeText(String time) {
-    return Text("Il y a $time", style: TextStyle(color: Colors.blue),);
+    return Text(
+      "Il y a $time",
+      style: TextStyle(color: Colors.blue),
+    );
   }
 }

@@ -6,34 +6,27 @@ class Post {
   int likes;
   int comments;
 
-  Post({
-  required this.name,
-  required this.imagePath,
-  required this.time,
-  required this.desc,
-   this.likes = 0,
-   this.comments = 0
+  Post(
+      {required this.name,
+      required this.imagePath,
+      required this.time,
+      required this.desc,
+      this.likes = 0,
+      this.comments = 0});
 
-  });
-
-  String setLinks(){
+  String setLinks() {
     return "$likes j'aime";
   }
 
-  String setTimes(){
+  String setTimes() {
     return "il y a $time";
   }
 
-  String setComment(){
-    if (comments>1) {
-       return "$comments j'aimes";
-      
+  String setComment() {
+    if (comments > 1) {
+      return "$comments j'aimes";
     } else {
-       return "$comments j'aime";
-      
+      return "$comments j'aime";
     }
-   
   }
-
-
 }
