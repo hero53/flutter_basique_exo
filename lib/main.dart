@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_basique_exo/post.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +22,13 @@ class MyApp extends StatelessWidget {
 }
 
 class BasicPage extends StatelessWidget {
+
+  List<Post> posts= [
+    Post(name:"Kassi Ange",time: "5 minutes", imagePath: "images/carnaval.jpg", desc: "Petit tour au Magic World, on s'est bien amusés et en plus il n'y avait pas grand monde. Bref, le kiff"),
+    Post(name:"Kouassi Yves",time: "2 jours", imagePath: "images/mountain.jpg", desc: "La montagne ca vous gagne", likes: 38),
+    Post(name:"Koue Jean",time: "1 semaine", imagePath: "images/work.jpg", desc: "Retour au boulot après plusieurs mois de confinement", likes: 12, comments: 3),
+    Post(name:"Kouakou Joel",time: "5 ans", imagePath: "images/playa.jpg", desc: "Le boulot en remote c'est le pied: la preuve ceci sera mon bureau pour les prochaines semaines", likes: 235, comments: 88)        
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +93,9 @@ class BasicPage extends StatelessWidget {
             allFriends(width / 3.5),
             Divider(thickness: 2,),
             sectionTitleText("Mes Posts"),
-            post(time: "5 minutes", image: "images/carnaval.jpg", desc: "Petit tour au Magic World, on s'est bien amusés et en plus il n'y avait pas grand monde. Bref, le kiff"),
-            post(time: "2 jours", image: "images/mountain.jpg", desc: "La montagne ca vous gagne", likes: 38),
-            post(time: "1 semaine", image: "images/work.jpg", desc: "Retour au boulot après plusieurs mois de confinement", likes: 12, comments: 3),
-            post(time: "5 ans", image: "images/playa.jpg", desc: "Le boulot en remote c'est le pied: la preuve ceci sera mon bureau pour les prochaines semaines", likes: 235, comments: 88)
-          ],
+            allPost()
+
+           ],
         ),
       ),
     );
@@ -177,8 +183,15 @@ class BasicPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     );
   }
+  Column allPost(){
+    List<Widget> postToAdd = [];
+    posts.forEach((element) {
+      postToAdd.add(post(post:element));
+     });
 
-  Container post({required String time , required String image, required String desc, int likes = 0, int comments = 0}) {
+     return Column(children: postToAdd);
+  }
+  Container post({required Post post}) {
     return Container(
       margin: EdgeInsets.only(top: 8, left: 3, right: 3),
       padding: EdgeInsets.all(10),
@@ -192,16 +205,16 @@ class BasicPage extends StatelessWidget {
             children: [
               myProfilePic(20),
               Padding(padding: EdgeInsets.only(left: 8)),
-              Text("Matthieu Codabee"),
+              Text(post.name),
               Spacer(),
-              timeText(time)
+              timeText(post.setTimes())
             ],
           ),
           Padding(
               padding: EdgeInsets.only(top: 8, bottom: 8),
-            child: Image.asset(image, fit: BoxFit.cover,)
+            child: Image.asset(post.imagePath, fit: BoxFit.cover,)
           ),
-          Text(desc,
+          Text(post.desc,
             style: TextStyle(
               color: Colors.blueAccent),
             textAlign: TextAlign.center,
@@ -213,9 +226,9 @@ class BasicPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Icon(Icons.favorite),
-              Text("$likes Likes"),
+              Text(post.setLinks()),
               Icon(Icons.message),
-              Text("$comments Commentaires")
+              Text(post.setComment())
             ],
           )
 
